@@ -676,6 +676,20 @@ namespace Microsoft.Azure.WebJobs.Script
             Logger?.LogInformation(signalMessage);
         }
 
+        // Create a TimeoutAttribute specified by scriptConfig knobs; else null.
+        internal static TimeoutAttribute CreateTimeoutAttribute(ScriptHostConfiguration scriptConfig)
+        {
+            if (scriptConfig.FunctionTimeout == null)
+            {
+                return null;
+            }
+            return new TimeoutAttribute(scriptConfig.FunctionTimeout.ToString())
+            {
+                ThrowOnTimeout = true,
+                TimeoutWhileDebugging = true
+            };
+        }
+
         internal static Collection<CustomAttributeBuilder> CreateTypeAttributes(ScriptHostConfiguration scriptConfig)
         {
             Collection<CustomAttributeBuilder> customAttributes = new Collection<CustomAttributeBuilder>();

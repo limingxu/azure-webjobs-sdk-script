@@ -435,6 +435,8 @@ namespace Microsoft.Azure.WebJobs.Script
                 // to prevent host startup failure
                 config.HostConfig.DashboardConnectionString = null;
             }
+
+            config.HostConfig.DefaultTimeout = ScriptHost.CreateTimeoutAttribute(config);
         }
 
         /// <summary>
